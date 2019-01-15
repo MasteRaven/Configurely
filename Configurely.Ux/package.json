@@ -1,0 +1,37 @@
+{
+  "name": "configurely",
+  "version": "1.0.0",
+  "description": "Forms as you need",
+  "main": "app.js",
+  "scripts": {
+    "dev": "webpack --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Luis Gomes",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.11",
+    "pluralize": "^7.0.0",
+    "query-string": "^6.2.0",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.0.0",
+    "@babel/plugin-transform-arrow-functions": "^7.0.0",
+    "babel-loader": "^8.0.4",
+    "clean-webpack-plugin": "^0.1.19",
+    "css-loader": "^1.0.0",
+    "ignore-loader": "^0.1.2",
+    "style-loader": "^0.23.1",
+    "uglifyjs-webpack-plugin": "^2.0.1",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-merge": "^4.1.4"
+  }
+}

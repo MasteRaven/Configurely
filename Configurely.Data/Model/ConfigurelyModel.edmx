@@ -1,0 +1,383 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ConfigurelyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DepartmentField">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+            <PropertyRef Name="FieldID" />
+          </Key>
+          <Property Name="DepartmentID" Type="int" Nullable="false" />
+          <Property Name="FieldID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="DepartmentID" Type="int" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="EmployeeData">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+            <PropertyRef Name="FieldID" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="FieldID" Type="int" Nullable="false" />
+          <Property Name="Value" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Field">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TypeID" Type="int" Nullable="false" />
+          <Property Name="DefaultValue" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sort" Type="int" />
+          <Property Name="Value" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="FieldType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_DepartmentField_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="DepartmentField" Type="Self.DepartmentField" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DepartmentField">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DepartmentField_Field">
+          <End Role="Field" Type="Self.Field" Multiplicity="1" />
+          <End Role="DepartmentField" Type="Self.DepartmentField" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Field">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DepartmentField">
+              <PropertyRef Name="FieldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeData_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="EmployeeData" Type="Self.EmployeeData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EmployeeData">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeData_Field">
+          <End Role="Field" Type="Self.Field" Multiplicity="1" />
+          <End Role="EmployeeData" Type="Self.EmployeeData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Field">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EmployeeData">
+              <PropertyRef Name="FieldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Field_Field">
+          <End Role="FieldType" Type="Self.FieldType" Multiplicity="1" />
+          <End Role="Field" Type="Self.Field" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FieldType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Field">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ConfigurelyModelStoreContainer">
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DepartmentField" EntityType="Self.DepartmentField" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeData" EntityType="Self.EmployeeData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Field" EntityType="Self.Field" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FieldType" EntityType="Self.FieldType" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DepartmentField_Department" Association="Self.FK_DepartmentField_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="DepartmentField" EntitySet="DepartmentField" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DepartmentField_Field" Association="Self.FK_DepartmentField_Field">
+            <End Role="Field" EntitySet="Field" />
+            <End Role="DepartmentField" EntitySet="DepartmentField" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Department" Association="Self.FK_Employee_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeData_Employee" Association="Self.FK_EmployeeData_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="EmployeeData" EntitySet="EmployeeData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeData_Field" Association="Self.FK_EmployeeData_Field">
+            <End Role="Field" EntitySet="Field" />
+            <End Role="EmployeeData" EntitySet="EmployeeData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Field_Field" Association="Self.FK_Field_Field">
+            <End Role="FieldType" EntitySet="FieldType" />
+            <End Role="Field" EntitySet="Field" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ConfigurelyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_Department" FromRole="Department" ToRole="Employee" />
+          <NavigationProperty Name="Field" Relationship="Self.DepartmentField" FromRole="Department" ToRole="Field" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Department" Relationship="Self.FK_Employee_Department" FromRole="Employee" ToRole="Department" />
+          <NavigationProperty Name="EmployeeData" Relationship="Self.FK_EmployeeData_Employee" FromRole="Employee" ToRole="EmployeeData" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="EmployeeData">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+            <PropertyRef Name="FieldID" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="FieldID" Type="Int32" Nullable="false" />
+          <Property Name="Value" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_EmployeeData_Employee" FromRole="EmployeeData" ToRole="Employee" />
+          <NavigationProperty Name="Field" Relationship="Self.FK_EmployeeData_Field" FromRole="EmployeeData" ToRole="Field" />
+        </EntityType>
+        <EntityType Name="Field">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TypeID" Type="Int32" Nullable="false" />
+          <Property Name="DefaultValue" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="EmployeeData" Relationship="Self.FK_EmployeeData_Field" FromRole="Field" ToRole="EmployeeData" />
+          <NavigationProperty Name="FieldType" Relationship="Self.FK_Field_Field" FromRole="Field" ToRole="FieldType" />
+          <NavigationProperty Name="Department" Relationship="Self.DepartmentField" FromRole="Field" ToRole="Department" />
+          <Property Name="Sort" Type="Int32" />
+          <Property Name="Value" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="FieldType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Field" Relationship="Self.FK_Field_Field" FromRole="FieldType" ToRole="Field" />
+        </EntityType>
+        <Association Name="FK_Employee_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeData_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="EmployeeData" Type="Self.EmployeeData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EmployeeData">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeData_Field">
+          <End Role="Field" Type="Self.Field" Multiplicity="1" />
+          <End Role="EmployeeData" Type="Self.EmployeeData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Field">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EmployeeData">
+              <PropertyRef Name="FieldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Field_Field">
+          <End Role="FieldType" Type="Self.FieldType" Multiplicity="1" />
+          <End Role="Field" Type="Self.Field" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FieldType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Field">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DepartmentField">
+          <End Role="Department" Type="Self.Department" Multiplicity="*" />
+          <End Role="Field" Type="Self.Field" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="ConfigurelyContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Department" EntityType="Self.Department" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" />
+          <EntitySet Name="EmployeeData" EntityType="Self.EmployeeData" />
+          <EntitySet Name="Field" EntityType="Self.Field" />
+          <EntitySet Name="FieldType" EntityType="Self.FieldType" />
+          <AssociationSet Name="FK_Employee_Department" Association="Self.FK_Employee_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeData_Employee" Association="Self.FK_EmployeeData_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="EmployeeData" EntitySet="EmployeeData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeData_Field" Association="Self.FK_EmployeeData_Field">
+            <End Role="Field" EntitySet="Field" />
+            <End Role="EmployeeData" EntitySet="EmployeeData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Field_Field" Association="Self.FK_Field_Field">
+            <End Role="FieldType" EntitySet="FieldType" />
+            <End Role="Field" EntitySet="Field" />
+          </AssociationSet>
+          <AssociationSet Name="DepartmentField" Association="Self.DepartmentField">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Field" EntitySet="Field" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ConfigurelyModelStoreContainer" CdmEntityContainer="ConfigurelyContext">
+          <EntitySetMapping Name="Department">
+            <EntityTypeMapping TypeName="ConfigurelyModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employee">
+            <EntityTypeMapping TypeName="ConfigurelyModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeData">
+            <EntityTypeMapping TypeName="ConfigurelyModel.EmployeeData">
+              <MappingFragment StoreEntitySet="EmployeeData">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="FieldID" ColumnName="FieldID" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Field">
+            <EntityTypeMapping TypeName="ConfigurelyModel.Field">
+              <MappingFragment StoreEntitySet="Field">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="DefaultValue" ColumnName="DefaultValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FieldType">
+            <EntityTypeMapping TypeName="ConfigurelyModel.FieldType">
+              <MappingFragment StoreEntitySet="FieldType">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="DepartmentField" TypeName="ConfigurelyModel.DepartmentField" StoreEntitySet="DepartmentField">
+            <EndProperty Name="Department">
+              <ScalarProperty Name="ID" ColumnName="DepartmentID" />
+            </EndProperty>
+            <EndProperty Name="Field">
+              <ScalarProperty Name="ID" ColumnName="FieldID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

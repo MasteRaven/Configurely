@@ -1,0 +1,54 @@
+﻿@model Configurely.App.ViewModels.Workflow.WorkFlowViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Manage Department WorkFlow</h2>
+
+<p>
+    Department Id - @Html.DisplayFor(model => model.DepartmentId)
+</p>
+<p>
+    Department Name - @Html.DisplayFor(model => model.DepartmentName)
+</p>
+<div class="col-xs-6">
+    <h2 class="sub-header">Current Department Fields</h2>
+    <table class="table table-condensed">
+        <tr>
+            <th>Field Id</th>
+            <th>Field Name</th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model.CurrentFields)
+        {
+            <tr>
+                <td>@Html.DisplayFor(o => item.ID) </td>
+                <td>@Html.DisplayFor(o => item.Name)</td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", new { departmentId = Model.DepartmentId, fieldId = item.ID })
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<div class="col-xs-6">
+    <h2 class="sub-header">Available Fields</h2>
+    <table class="table table-condensed">
+        <tr>
+            <th>Field Id</th>
+            <th>Field Name</th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model.AvailableFields)
+        {
+            <tr>
+                <td>@Html.DisplayFor(o => item.ID) </td>
+                <td>@Html.DisplayFor(o => item.Name)</td>
+                <td>
+                    @Html.ActionLink("Add", "Add", new { departmentId = Model.DepartmentId, fieldId = item.ID })
+                </td>
+            </tr>
+        }
+    </table>
+</div>

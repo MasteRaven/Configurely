@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="286fcf8cbb0341969eb02467a9ef9fc5" Name="Diagram1">
+        <EntityTypeShape EntityType="ConfigurelyModel.Department" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConfigurelyModel.Employee" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConfigurelyModel.EmployeeData" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConfigurelyModel.Field" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConfigurelyModel.FieldType" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <AssociationConnector Association="ConfigurelyModel.FK_Employee_Department" ManuallyRouted="false" />
+        <AssociationConnector Association="ConfigurelyModel.FK_EmployeeData_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="ConfigurelyModel.FK_EmployeeData_Field" ManuallyRouted="false" />
+        <AssociationConnector Association="ConfigurelyModel.FK_Field_Field" ManuallyRouted="false" />
+        <AssociationConnector Association="ConfigurelyModel.DepartmentField" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
