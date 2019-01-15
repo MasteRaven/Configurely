@@ -114,7 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Configurely.Entities\Configurely.Entities.csproj">
-      <Project>{e6028c72-c0f1-4020-8533-9ca13139e9ba}</Project>
+      <Project>{2e66896b-21e3-4190-a038-4fe5f698452d}</Project>
       <Name>Configurely.Entities</Name>
     </ProjectReference>
   </ItemGroup>
