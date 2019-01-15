@@ -93,7 +93,7 @@ namespace Configurely.App.Controllers
                 oResult = await client.PostAsync("http://localhost:51506/ConfigurelyService.svc/AddDepartmentField", stringContent);
             }
 
-            return RedirectToAction("Edit", departmentId);
+            return RedirectToAction("Edit", new { id = departmentId });
         }
 
         /// <summary>
@@ -119,10 +119,10 @@ namespace Configurely.App.Controllers
                 var json = serializer.Serialize(oDepartment);
                 var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-                oResult = await client.PostAsync("http://localhost:51506/ConfigurelyService.svc/RemoveDepartmentField", stringContent);
+                oResult = await client.PostAsync("http://localhost:51506/ConfigurelyService.svc/DeleteDepartmentField", stringContent);
             }
 
-            return RedirectToAction("Edit", departmentId);
+            return RedirectToAction("Edit", new { id = departmentId });
         }
     }
 }

@@ -15,14 +15,14 @@ namespace Configurely.App.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Configurely - Configuration Made Easy";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Luis Gomes Contacts";
 
             return View();
         }

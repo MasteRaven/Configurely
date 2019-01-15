@@ -195,7 +195,7 @@ namespace Configurely.Data.Repository
             {
                 ID = dbEmployee.ID,
                 Name = dbEmployee.Name,
-                DateCreated = DateTime.Now
+                DateCreated = dbEmployee.DateCreated
             };
 
             oEmployee.EmployeeDepartment = new Entities.Department
@@ -263,9 +263,9 @@ namespace Configurely.Data.Repository
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
+                throw;
             }
 
             return departments;
@@ -295,9 +295,9 @@ namespace Configurely.Data.Repository
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
+                throw;
             }
 
             return responseDepartment;
@@ -354,9 +354,9 @@ namespace Configurely.Data.Repository
                     }).ToList();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
+                throw;
             }
 
             return responseField;
@@ -414,18 +414,16 @@ namespace Configurely.Data.Repository
                 {
                     Department dbDepartment = context.Department.Include(x => x.Field).Single(x => x.ID == department.ID);
 
-                    context.Department.Attach(dbDepartment);
-
                     Field fieldToDelete = dbDepartment.Field.Where(x => x.ID == department.Fields.Single().ID).SingleOrDefault();
+
                     if (fieldToDelete != null)
                     {
                         dbDepartment.Field.Remove(fieldToDelete);
+
                         context.SaveChanges();
+
+                        response.isSuccess = true;
                     }
-
-                    context.SaveChanges();
-
-                    response.isSuccess = true;
                 }
             }
             catch (Exception ex)

@@ -17,6 +17,6 @@ namespace Configurely.Entities
         public List<EmployeeData> EmployeeData { get; set; }
         [DataMember]
         [Editable(false)]
-        public DateTime DateCreated { get; set; }
+        public DateTime? DateCreated { get; set; }
     }
 }
